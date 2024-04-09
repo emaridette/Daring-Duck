@@ -1,0 +1,226 @@
+
+public class Tape {
+    private Stack<String> leftStack = new Stack<>();
+    private Stack<String> rightStack = new Stack<>();
+    private String currentChar;
+    private int oneCount = 0;
+    
+    public Tape(String input) {
+        for (int i = input.length() - 1; i >= 0; i--) {
+            rightStack.push(input.substring(i, i + 1));
+        }
+        if (rightStack.empty()) {
+            currentChar = ".";
+        } 
+        else {
+            currentChar = rightStack.pop();
+        }
+    }
+
+    public void left() {
+        rightStack.push(currentChar);
+
+        if (leftStack.empty()) {
+            currentChar = ".";
+        } 
+        else {
+            currentChar = leftStack.pop();
+        }
+    }
+
+    public void right() {
+        leftStack.push(currentChar);
+
+        if (rightStack.empty()) {
+            currentChar = ".";
+        } 
+        else {
+            currentChar = rightStack.pop();
+        }
+    }
+
+    public String read() {
+        return currentChar;
+    } 
+
+    public void write(String newString) {
+        if (currentChar == "1") {
+            oneCount--;
+        }
+
+        if (newString == "1") {
+            oneCount++;
+        }
+
+        currentChar = newString;
+    }
+
+    public String toString() {
+        String toPrint = "";
+        
+        while (!leftStack.empty()) {
+            toPrint = leftStack.pop() + " " + toPrint;
+        }
+
+        toPrint = toPrint + " " + currentChar;
+
+        while (!rightStack.empty()) {
+            toPrint = toPrint + " " + rightStack.pop();
+        }
+
+        return toPrint;
+    }
+
+    public int oneCount() {
+        return oneCount;
+    }
+
+}
+
+public class Tape {
+    private Stack<String> leftStack = new Stack<>();
+    private Stack<String> rightStack = new Stack<>();
+    private String currentChar;
+    private int oneCount = 0;
+    
+    public Tape(String input) {
+        for (int i = input.length() - 1; i >= 0; i--) {
+            rightStack.push(input.substring(i, i + 1));
+        }
+        if (rightStack.empty()) {
+            currentChar = ".";
+        } 
+        else {
+            currentChar = rightStack.pop();
+        }
+    }
+
+    public void left() {
+        rightStack.push(currentChar);
+
+        if (leftStack.empty()) {
+            currentChar = ".";
+        } 
+        else {
+            currentChar = leftStack.pop();
+        }
+    }
+
+    public void right() {
+        leftStack.push(currentChar);
+
+        if (rightStack.empty()) {
+            currentChar = ".";
+        } 
+        else {
+            currentChar = rightStack.pop();
+        }
+    }
+
+    public String read() {
+        return currentChar;
+    } 
+
+    public void write(String newString) {
+        if (currentChar == "1") {
+            oneCount--;
+        }
+
+        if (newString == "1") {
+            oneCount++;
+        }
+
+        currentChar = newString;
+    }
+
+    public String toString() {
+        String toPrint = "";
+        
+        while (!leftStack.empty()) {
+            toPrint = leftStack.pop() + " " + toPrint;
+        }
+
+        toPrint = toPrint + " " + currentChar;
+
+        while (!rightStack.empty()) {
+            toPrint = toPrint + " " + rightStack.pop();
+        }
+
+        return toPrint;
+    }
+
+    public int oneCount() {
+        return oneCount;
+    }
+
+}
+
+
+public class State {
+    private String name;
+    private List<Transition> transitions;
+    private boolean isFinal;
+
+
+    public State(String name, List<Transition> transitions, boolean isFinal) {
+        this.name = name;
+        this.transitions = transitions;
+        this.isFinal = isFinal;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Transition getTransition(char inputChar) {
+        return transitions.get(inputChar);
+    }
+
+    public void addTransition(Transition transition) {
+        transitions.add(transition);
+    }
+
+    public boolean isFinal() {
+        return isFinal;
+    }
+}
+
+public class StateMachine {
+    
+    private ArrayList<State> states = new ArrayList<>(); 
+    private State currentState;
+    private Tape tape;
+
+    public StateMachine(State initialState, Tape tape) {
+        currentState = initialState;
+        this.tape = tape;
+    }
+
+    public void addState(State state) {
+        states.add(state);
+    }
+
+    public void machineRunner() {
+        while (!currentState.isFinal()) {
+            char inputChar = tape.read().charAt(0);
+            Transition transition = currentState.getTransition(inputChar);
+
+            if (transition == null) {
+                break;
+            }
+
+            tape.write(String.valueOf(transition.getWrittenChar()));
+
+            if (transition.getDirection().equals("left")) {
+                tape.left();
+            }
+            else if (transition.getDirection().equals("right")) {
+                tape.right();
+            }
+            
+            currentState = transition.getNextState();
+        }
+    }
+}
+
+

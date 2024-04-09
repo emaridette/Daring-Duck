@@ -3,13 +3,13 @@ import java.util.List;
 public class State {
     private String name;
     private List<Transition> transitions;
-    private boolean isTerminal;
+    private boolean isFinal;
 
 
-    public State(String name, List<Transition> transitions, boolean isTerminal) {
+    public State(String name, List<Transition> transitions, boolean isFinal) {
         this.name = name;
         this.transitions = transitions;
-        this.isTerminal = isTerminal;
+        this.isFinal = isFinal;
     }
 
     public String getName() {
@@ -24,7 +24,7 @@ public class State {
         transitions.add(transition);
     }
 
-    public boolean isTerminal() {
-        return isTerminal;
+    public boolean isFinal() {
+        return isFinal;
     }
 }

@@ -15,7 +15,7 @@ public class StateMachine {
     }
 
     public void machineRunner() {
-        while (!currentState.isTerminal()) {
+        while (!currentState.isFinal()) {
             char inputChar = tape.read().charAt(0);
             Transition transition = currentState.getTransition(inputChar);
 
