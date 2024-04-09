@@ -17,7 +17,11 @@ public class State {
     }
 
     public Transition getTransition(char inputChar) {
-        return transitions.get(inputChar);
+        if (inputChar >= 0 && inputChar < transitions.size()) {
+            return transitions.get(inputChar);
+        } else {
+            return null;
+        }
     }
 
     public void addTransition(Transition transition) {

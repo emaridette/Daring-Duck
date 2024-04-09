@@ -45,11 +45,11 @@ public class Tape {
     } 
 
     public void write(String newString) {
-        if (currentChar == "1") {
+        if (currentChar.equals("1")) {
             oneCount--;
         }
 
-        if (newString == "1") {
+        if (newString.equals("1")) {
             oneCount++;
         }
 

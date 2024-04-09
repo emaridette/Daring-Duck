@@ -35,4 +35,12 @@ public class StateMachine {
             currentState = transition.getNextState();
         }
     }
+
+    public String getFinalState() {
+        return currentState.getName();
+    }
+
+    public Tape getTape() {
+        return tape;
+    }
 }
