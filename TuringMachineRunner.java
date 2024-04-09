@@ -68,37 +68,28 @@ public class TuringMachineRunner {
         State q5 = new State("q5", transitions6, false);
         State q6 = new State("qend", transitions7, true);
 
-        // Define transitions for s0
         transitions1.add(new Transition('0', '0', "right", q0));
         transitions1.add(new Transition('1', '1', "right", q0));
         transitions1.add(new Transition('_', '_', "left", q1));
 
-        // Define transitions for s1
         transitions2.add(new Transition('0', '0', "left", q1));
         transitions2.add(new Transition('1', '1', "left", q1));
 
-
-        // Define transitions for s2
         transitions3.add(new Transition('0', '1', "right", q0));
         transitions3.add(new Transition('1', '1', "left", q5));
 
-        // Define transitions for s5
         transitions6.add(new Transition('1', '1', "left", q5));
         transitions6.add(new Transition('0', '0', "right", q3));
 
-        // Define transitions for s3
         transitions4.add(new Transition('0', '0', "right", q3));
         transitions4.add(new Transition('1', '1', "right", q3));
 
-        // Define transitions for s4
         transitions5.add(new Transition('1', '0', "left", q0));
         transitions5.add(new Transition('0', '1', "right", q0));
 
-        // Create StateMachine and run
         StateMachine stateMachine = new StateMachine(q0, tape);
         stateMachine.machineRunner();
 
-        // Output final tape content and number of '1's
         System.out.println("Final Tape: " + tape);
         System.out.println("# of Ones: " + tape.oneCount());
 

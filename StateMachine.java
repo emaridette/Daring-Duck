@@ -33,6 +33,8 @@ public class StateMachine {
             }
             
             currentState = transition.getNextState();
+
+            System.out.println(tape);
         }
     }
 

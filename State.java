@@ -17,11 +17,13 @@ public class State {
     }
 
     public Transition getTransition(char inputChar) {
-        if (inputChar >= 0 && inputChar < transitions.size()) {
-            return transitions.get(inputChar);
-        } else {
-            return null;
+        for (int i = 0; i < transitions.size(); i++) {
+            if (transitions.get(i).getInputChar() == inputChar) {
+                return transitions.get(i);
+            }
         }
+
+        return null;
     }
 
     public void addTransition(Transition transition) {

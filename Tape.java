@@ -45,28 +45,27 @@ public class Tape {
     } 
 
     public void write(String newString) {
-        if (currentChar.equals("1")) {
-            oneCount--;
-        }
+        currentChar = newString;
 
         if (newString.equals("1")) {
             oneCount++;
         }
-
-        currentChar = newString;
+        else if (currentChar.equals("1")) {
+            oneCount--;
+        }
     }
 
     public String toString() {
         String toPrint = "";
-        
-        while (!leftStack.empty()) {
-            toPrint = leftStack.pop() + " " + toPrint;
+
+        for (String str : leftStack) {
+            toPrint = str + " " + toPrint;
         }
 
         toPrint = toPrint + " " + currentChar;
 
-        while (!rightStack.empty()) {
-            toPrint = toPrint + " " + rightStack.pop();
+        for (String str : rightStack) {
+            toPrint = toPrint + " " + str;
         }
 
         return toPrint;
