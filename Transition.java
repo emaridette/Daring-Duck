@@ -2,9 +2,9 @@ public class Transition {
     private char inputChar;
     private char writtenChar;
     private String direction;
-    private String nextState;
+    private State nextState;
 
-    public Transition(char inputChar, char writtenChar, String move, String nextState) {
+    public Transition(char inputChar, char writtenChar, String move, State nextState) {
         this.inputChar = inputChar;
         this.writtenChar = writtenChar;
         this.direction = move;
@@ -23,7 +23,7 @@ public class Transition {
         return direction;
     }
 
-    public String getNextState() {
+    public State getNextState() {
         return nextState;
     }
 

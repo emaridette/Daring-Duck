@@ -16,8 +16,12 @@ public class State {
         return name;
     }
 
-    public List<Transition> getTransitions() {
-        return transitions;
+    public Transition getTransition(char inputChar) {
+        return transitions.get(inputChar);
+    }
+
+    public void addTransition(Transition transition) {
+        transitions.add(transition);
     }
 
     public boolean isTerminal() {
