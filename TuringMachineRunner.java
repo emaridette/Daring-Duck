@@ -50,7 +50,7 @@ public class TuringMachineRunner {
         //System.out.println("Final Tape: " + tape);
         //System.out.println("# of Ones: " + tape.oneCount());
 
-        Tape tape = new Tape("01010101"); // Start with initial tape content
+        Tape tape = new Tape("H000000000000000X"); // Start with initial tape content
 
         ArrayList<Transition> transitions1 = new ArrayList<>();
         ArrayList<Transition> transitions2 = new ArrayList<>();
@@ -70,27 +70,37 @@ public class TuringMachineRunner {
 
         transitions1.add(new Transition('0', '0', "right", q0));
         transitions1.add(new Transition('1', '1', "right", q0));
-        transitions1.add(new Transition('_', '_', "left", q1));
+        transitions1.add(new Transition('X', 'X', "right", q0));
+        transitions1.add(new Transition('H', 'H', "right", q0));
+        transitions1.add(new Transition('_', '1', "left", q1));
 
-        transitions2.add(new Transition('0', '0', "left", q1));
-        transitions2.add(new Transition('1', '1', "left", q1));
+        transitions2.add(new Transition('0', '0', "right", q1));
+        transitions2.add(new Transition('1', '1', "right", q1));
+        transitions2.add(new Transition('X', 'X', "right", q1));
+        transitions2.add(new Transition('H', 'H', "right", q1));
+        transitions2.add(new Transition('X', 'X', "left", q2));
 
         transitions3.add(new Transition('0', '1', "right", q0));
-        transitions3.add(new Transition('1', '1', "left", q5));
+        transitions3.add(new Transition('1', '1', "left", q3));
 
-        transitions6.add(new Transition('1', '1', "left", q5));
-        transitions6.add(new Transition('0', '0', "right", q3));
+        transitions4.add(new Transition('0', '0', "right", q4));
+        transitions4.add(new Transition('1', '1', "left", q3));
+        transitions4.add(new Transition('H', 'H', "right", q6));
 
-        transitions4.add(new Transition('0', '0', "right", q3));
-        transitions4.add(new Transition('1', '1', "right", q3));
+        transitions5.add(new Transition('0', '0', "right", q4));
+        transitions5.add(new Transition('1', '1', "right", q4));
+        transitions5.add(new Transition('X', 'X', "right", q4));
+        transitions5.add(new Transition('H', 'H', "right", q4));
+        transitions5.add(new Transition('X', 'X', "left", q5));
 
-        transitions5.add(new Transition('1', '0', "left", q0));
-        transitions5.add(new Transition('0', '1', "right", q0));
+        transitions6.add(new Transition('1', '0', "left", q5));
+        transitions6.add(new Transition('0', '1', "right", q0));
+
 
         StateMachine stateMachine = new StateMachine(q0, tape);
         stateMachine.machineRunner();
 
-        System.out.println("Final Tape: " + tape);
+        System.out.println("Final Tape: " + tape.toString());
         System.out.println("# of Ones: " + tape.oneCount());
 
     }

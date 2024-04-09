@@ -45,14 +45,13 @@ public class Tape {
     } 
 
     public void write(String newString) {
-        currentChar = newString;
-
-        if (newString.equals("1")) {
+        if (currentChar.equals("1")) {
+            oneCount--;
+        } else if (newString.equals("1")) {
             oneCount++;
         }
-        else if (currentChar.equals("1")) {
-            oneCount--;
-        }
+    
+        currentChar = newString;
     }
 
     public String toString() {
