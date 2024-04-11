@@ -1,73 +1,46 @@
-import java.util.Stack;
-
 public class Tape {
-    private Stack<String> leftStack = new Stack<>();
-    private Stack<String> rightStack = new Stack<>();
-    private String currentChar;
     private int oneCount = 0;
+    private String tape;
+    private int pos;
     
     public Tape(String input) {
-        for (int i = input.length() - 1; i >= 0; i--) {
-            rightStack.push(input.substring(i, i + 1));
-        }
-        if (rightStack.empty()) {
-            currentChar = ".";
-        } 
-        else {
-            currentChar = rightStack.pop();
-        }
+        this.tape = input;
     }
 
     public void left() {
-        rightStack.push(currentChar);
-
-        if (leftStack.empty()) {
-            currentChar = ".";
-        } 
-        else {
-            currentChar = leftStack.pop();
+        if (pos == 0) {
+            tape = "." + tape;
+        } else {
+            pos--;
         }
     }
 
     public void right() {
-        leftStack.push(currentChar);
-
-        if (rightStack.empty()) {
-            currentChar = ".";
-        } 
-        else {
-            currentChar = rightStack.pop();
+        if (pos == tape.length() - 1) {
+            tape += ".";
         }
+        pos++;
     }
 
-    public String read() {
-        return currentChar;
+    public char read() {
+        return tape.charAt(pos);
     } 
 
-    public void write(String newString) {
-        if (currentChar.equals("1")) {
+    public void write(char newChar) {
+        if (read() == '1') {
             oneCount--;
-        } else if (newString.equals("1")) {
+        }
+        if (newChar == '1') {
             oneCount++;
         }
     
-        currentChar = newString;
+        StringBuilder t = new StringBuilder(tape);
+        t.setCharAt(pos, newChar);
+        tape = t.toString();
     }
 
     public String toString() {
-        String toPrint = "";
-
-        for (String str : leftStack) {
-            toPrint = str + " " + toPrint;
-        }
-
-        toPrint = toPrint + " " + currentChar;
-
-        for (String str : rightStack) {
-            toPrint = toPrint + " " + str;
-        }
-
-        return toPrint;
+        return tape;
     }
 
     public int oneCount() {

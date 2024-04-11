@@ -27,4 +27,9 @@ public class Transition {
         return nextState;
     }
 
+    public String toString() {
+        String s = "" + inputChar + ", " + writtenChar + ", " + direction + " " + nextState.toString();
+        return s;
+    }
+
 }

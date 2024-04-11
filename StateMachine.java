@@ -3,6 +3,7 @@ public class StateMachine {
     
     private ArrayList<State> states = new ArrayList<>(); 
     private State currentState;
+    private State haltState;
     private Tape tape;
 
     public StateMachine(State initialState, Tape tape) {
@@ -15,31 +16,50 @@ public class StateMachine {
     }
 
     public void machineRunner() {
-        while (!currentState.isFinal()) {
-            char inputChar = tape.read().charAt(0);
+        int maxIterations = 50000000;
+        int iterations = 0;
+
+        //System.out.println(tape);
+
+        while (!currentState.isFinal() && (iterations < maxIterations)) {
+            char inputChar = tape.read();
             Transition transition = currentState.getTransition(inputChar);
 
             if (transition == null) {
                 break;
             }
 
-            tape.write(String.valueOf(transition.getWrittenChar()));
+            //System.out.println(transition.toString());
+
+            tape.write(transition.getWrittenChar());
 
             if (transition.getDirection().equals("left")) {
                 tape.left();
+                //System.out.println("LEFT");
             }
             else if (transition.getDirection().equals("right")) {
                 tape.right();
+                //System.out.println("RIGHT");
             }
             
             currentState = transition.getNextState();
 
-            System.out.println(tape);
+            //System.out.println(tape);
+
+            iterations++;
+        }
+
+        if (iterations >= maxIterations) {
+          System.out.println("Max iterations reached. Terminating.");
         }
     }
 
-    public String getFinalState() {
-        return currentState.getName();
+    public State getFinalState() {
+        return haltState;
+    }
+
+    public State getCurrentState() {
+        return currentState;
     }
 
     public Tape getTape() {

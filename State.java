@@ -33,4 +33,8 @@ public class State {
     public boolean isFinal() {
         return isFinal;
     }
+
+    public String toString() {
+        return name;
+    }
 }
